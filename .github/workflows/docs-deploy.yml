@@ -39,7 +39,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install --filter=./apps/docs...
+        run: pnpm install
 
       - name: Build
         run: pnpm build --filter=./apps/docs...

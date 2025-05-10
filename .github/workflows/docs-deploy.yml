@@ -30,10 +30,10 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install --filter=./apps/docs
+        run: pnpm install
 
       - name: Build
-        run: pnpm build --filter=./apps/docs
+        run: pnpm build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0

@@ -41,6 +41,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      # Turbo filter for docs app and it's dependencies
+      # ref: https://turborepo.com/docs/crafting-your-repository/running-tasks#filtering-to-include-dependencies
+
       - name: Build
         run: pnpm build --filter=./apps/docs...
 

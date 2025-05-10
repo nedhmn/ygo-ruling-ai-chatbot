@@ -1,10 +1,12 @@
 name: Deploy Docs to Github Pages
 
+# Github actions for Turborepos
+# ref: https://turborepo.com/docs/guides/ci-vendors/github-actions
+
 on:
   push:
     branches: ["main"]
-    paths:
-      - "apps/docs/**"
+    paths: ["apps/docs/**"]
 
   workflow_dispatch:
 
@@ -12,6 +14,13 @@ jobs:
   build:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+
+    # Turborepo remote cache
+    # ref: https://turborepo.com/docs/guides/ci-vendors/github-actions#remote-caching
+
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
     steps:
       - name: Check out code
@@ -35,11 +44,17 @@ jobs:
       - name: Build
         run: pnpm build
 
+      # Upload static files as artifact to deploy to github pages
+      # ref: https://github.com/actions/upload-pages-artifact
+
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
           path: apps/docs/out/
+
+  # Deploy to github pages
+  # ref: https://github.com/actions/deploy-pages
 
   deploy:
     needs: build

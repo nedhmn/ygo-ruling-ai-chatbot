@@ -6,7 +6,7 @@ export const generateStaticParams = generateStaticParamsFor("mdxPath");
 // Metadata props type
 // ref: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
 type Props = {
-  params: Promise<{ id: string; mdxPath?: string[] }>;
+  params: Promise<{ id: string; mdxPath: string[] }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 

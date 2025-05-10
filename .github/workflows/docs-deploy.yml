@@ -39,10 +39,10 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --filter=./apps/docs...
 
       - name: Build
-        run: pnpm build
+        run: pnpm build --filter=./apps/docs...
 
       # Upload static files as artifact to deploy to github pages
       # ref: https://github.com/actions/upload-pages-artifact

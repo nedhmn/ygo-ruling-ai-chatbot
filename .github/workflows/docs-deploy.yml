@@ -38,6 +38,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: debug
+        run: ls apps/docs
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:

@@ -5,7 +5,7 @@ import type { MDXComponents } from "mdx/types";
 const themeComponents = getThemeComponents();
 
 // Merge components
-export function useMDXComponents(components: MDXComponents) {
+export function useMDXComponents(components?: MDXComponents) {
   return {
     ...themeComponents,
     ...components,

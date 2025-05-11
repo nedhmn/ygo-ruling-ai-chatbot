@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ai-rag",
+  "name": "@repo/database",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -12,8 +12,5 @@
     "@repo/typescript-config": "workspace:*",
     "eslint": "^9.26.0",
     "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "openai": "^4.98.0"
   }
 }

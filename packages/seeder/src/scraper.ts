@@ -48,7 +48,11 @@ export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
     if ($element.is("ul") && current_card_name) {
       $element.find("li").each((li_index, li_element) => {
         const $li = $(li_element);
-        const content = $li.text().replace(/\s+/g, " ").trim();
+        const content = $li
+          .text()
+          .replace(/\s+/g, " ") // Replace \n + whitespace to single space
+          .replace(/[“”]/g, '"') // Replace smart-quotes with double-quotes
+          .trim();
 
         // Get involved cards
         const involved_cards = get_involved_card_names(content);
@@ -89,7 +93,17 @@ function get_involved_card_names(ruling: string): string[] {
 
   while ((match = regex.exec(ruling)) !== null) {
     if (match[1]) {
-      involved_cards.push(match[1]);
+      // Clean card name
+      let card = match[1]
+        .trim()
+        .replace(/\(s\)$/i, "") // Remove trailing "(s)"
+        .replace(/(?:'s|’s)$/i, ""); // Remove trailing "'s"
+
+      if (!/(Lord of D|T\.A\.D\.P\.O\.L\.E)/i.test(card)) {
+        card = card.replace(/\.$/, ""); // Remove trailing "."
+      }
+
+      involved_cards.push(card);
     }
   }
 

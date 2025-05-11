@@ -12,5 +12,8 @@
     "@repo/typescript-config": "workspace:*",
     "eslint": "^9.26.0",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@pinecone-database/pinecone": "^6.0.0"
   }
 }

@@ -122,6 +122,21 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
+  packages/ai-rag:
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: ^9.26.0
+        version: 9.26.0(jiti@2.4.2)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+
   packages/eslint-config:
     devDependencies:
       '@eslint/js':

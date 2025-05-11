@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@repo/seeder/*": ["./src/*"]
+      "@repo/ai-rag/*": ["./src/*"]
     }
   },
   "include": ["src"],

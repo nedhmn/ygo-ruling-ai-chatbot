@@ -51,7 +51,8 @@ export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
         const content = $li
           .text()
           .replace(/\s+/g, " ") // Replace \n + whitespace to single space
-          .replace(/[“”]/g, '"') // Replace smart-quotes with double-quotes
+          .replace(/[“”]/g, '"') // Replace double-smart-quotes with double-quotes
+          .replace(/[\u2018\u2019]/g, "'") // Replace single-smart-quote with single-quote
           .trim();
 
         // Get involved cards
@@ -97,7 +98,7 @@ function get_involved_card_names(ruling: string): string[] {
       let card = match[1]
         .trim()
         .replace(/\(s\)$/i, "") // Remove trailing "(s)"
-        .replace(/(?:'s|’s)$/i, ""); // Remove trailing "'s"
+        .replace(/(?:'s)$/i, ""); // Remove trailing "'s"
 
       if (!/(Lord of D|T\.A\.D\.P\.O\.L\.E)/i.test(card)) {
         card = card.replace(/\.$/, ""); // Remove trailing "."

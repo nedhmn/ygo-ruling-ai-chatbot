@@ -1,11 +1,5 @@
 {
-  "extends": "@repo/typescript-config/base.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@repo/seeder/*": ["./src/*"]
-    }
-  },
+  "extends": "@repo/tsconfig/base.json",
   "include": ["src"],
   "exclude": ["node_modules"]
 }

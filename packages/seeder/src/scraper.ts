@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import axios from "axios";
-import { CardRuling } from "@repo/seeder/types";
+import { CardRuling } from "./types.js";
 
 export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
   // Get html content

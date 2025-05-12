@@ -42,9 +42,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@repo/typescript-config':
+      '@repo/tsconfig':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../packages/tsconfig
       '@types/mdx':
         specifier: ^2.0.13
         version: 2.0.13
@@ -91,9 +91,9 @@ importers:
       '@repo/tailwind-config':
         specifier: workspace:*
         version: link:../../packages/tailwind-config
-      '@repo/typescript-config':
+      '@repo/tsconfig':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../packages/tsconfig
       '@tailwindcss/postcss':
         specifier: ^4.1.5
         version: 4.1.5
@@ -124,9 +124,12 @@ importers:
 
   packages/ai-rag:
     dependencies:
-      dotenv:
-        specifier: ^16.5.0
-        version: 16.5.0
+      '@pinecone-database/pinecone':
+        specifier: ^6.0.0
+        version: 6.0.0
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
       openai:
         specifier: ^4.98.0
         version: 4.98.0(zod@3.24.4)
@@ -137,34 +140,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/typescript-config':
+      '@repo/tsconfig':
         specifier: workspace:*
-        version: link:../typescript-config
-      eslint:
-        specifier: ^9.26.0
-        version: 9.26.0(jiti@2.4.2)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-
-  packages/database:
-    dependencies:
-      '@pinecone-database/pinecone':
-        specifier: ^6.0.0
-        version: 6.0.0
-      dotenv:
-        specifier: ^16.5.0
-        version: 16.5.0
-      zod:
-        specifier: ^3.24.4
-        version: 3.24.4
-    devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../tsconfig
       eslint:
         specifier: ^9.26.0
         version: 9.26.0(jiti@2.4.2)
@@ -210,9 +188,9 @@ importers:
 
   packages/seeder:
     dependencies:
-      '@types/cheerio':
-        specifier: ^1.0.0
-        version: 1.0.0
+      '@repo/ai-rag':
+        specifier: workspace:*
+        version: link:../ai-rag
       axios:
         specifier: ^1.9.0
         version: 1.9.0
@@ -223,9 +201,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/typescript-config':
+      '@repo/tsconfig':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../tsconfig
       eslint:
         specifier: ^9.26.0
         version: 9.26.0(jiti@2.4.2)
@@ -242,7 +220,7 @@ importers:
         specifier: ^4.1.5
         version: 4.1.5
 
-  packages/typescript-config: {}
+  packages/tsconfig: {}
 
   packages/ui:
     dependencies:
@@ -274,9 +252,9 @@ importers:
       '@repo/tailwind-config':
         specifier: workspace:*
         version: link:../tailwind-config
-      '@repo/typescript-config':
+      '@repo/tsconfig':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../tsconfig
       '@tailwindcss/cli':
         specifier: ^4.1.5
         version: 4.1.5
@@ -292,6 +270,28 @@ importers:
       typescript:
         specifier: 5.8.2
         version: 5.8.2
+
+  packages/utils:
+    dependencies:
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      eslint:
+        specifier: ^9.26.0
+        version: 9.26.0(jiti@2.4.2)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
 packages:
 
@@ -999,10 +999,6 @@ packages:
 
   '@theguild/remark-npm2yarn@0.3.3':
     resolution: {integrity: sha512-ma6DvR03gdbvwqfKx1omqhg9May/VYGdMHvTzB4VuxkyS7KzfZ/lzrj43hmcsggpMje0x7SADA/pcMph0ejRnA==}
-
-  '@types/cheerio@1.0.0':
-    resolution: {integrity: sha512-zAaImHWoh5RY2CLgU2mvg3bl2k3F65B0N5yphuII3ythFLPmJhL7sj1RDu6gSxcgqHlETbr/lhA2OBY+WF1fXQ==}
-    deprecated: This is a stub types definition. cheerio provides its own type definitions, so you do not need this installed.
 
   '@types/d3-array@3.2.1':
     resolution: {integrity: sha512-Y2Jn2idRrLzUfAKV2LyRImR+y4oa2AntrgID95SHJxuMUrkNXmanDSed71sRNZysveJVt1hLLemQZIady0FpEg==}
@@ -4497,10 +4493,6 @@ snapshots:
     dependencies:
       npm-to-yarn: 3.0.1
       unist-util-visit: 5.0.0
-
-  '@types/cheerio@1.0.0':
-    dependencies:
-      cheerio: 1.0.0
 
   '@types/d3-array@3.2.1': {}
 

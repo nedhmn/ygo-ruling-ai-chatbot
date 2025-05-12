@@ -21,7 +21,7 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^15.3.0",
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
     "@types/mdx": "^2.0.13",
     "@types/node": "^22.15.3",
     "@types/react": "^19.1.0",

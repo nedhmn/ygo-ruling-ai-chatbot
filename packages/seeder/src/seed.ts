@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { get_rulings_from_url } from "@repo/seeder/scraper";
+import { get_rulings_from_url } from "./scraper.js";
 
 async function main() {
   // Build an array of URLs: rulings1.html to rulings8.html

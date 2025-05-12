@@ -10,6 +10,8 @@ if (process.env.NODE_ENV !== "production") {
 
 const env_schema = z.object({
   OPENAI_API_KEY: z.string(),
+  EMBEDDING_MODEL: z.string().default("text-embedding-3-small"),
+  EMBEDDING_DIMENSIONS: z.number().int().default(1536),
 });
 
 const env = env_schema.parse(process.env);

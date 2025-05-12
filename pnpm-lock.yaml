@@ -124,9 +124,15 @@ importers:
 
   packages/ai-rag:
     dependencies:
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       openai:
         specifier: ^4.98.0
         version: 4.98.0(zod@3.24.4)
+      zod:
+        specifier: ^3.24.4
+        version: 3.24.4
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -1740,6 +1746,10 @@ packages:
 
   dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -5364,6 +5374,8 @@ snapshots:
       domhandler: 5.0.3
 
   dotenv@16.0.3: {}
+
+  dotenv@16.5.0: {}
 
   dunder-proto@1.0.1:
     dependencies:

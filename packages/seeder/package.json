@@ -14,7 +14,6 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@repo/ai-rag": "workspace:*",
     "axios": "^1.9.0",
     "cheerio": "^1.0.0"
   }

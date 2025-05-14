@@ -3,7 +3,7 @@ import { Index, Pinecone } from "@pinecone-database/pinecone";
 
 let _pineconeIndex: Index | undefined;
 
-async function getPineconeIndex(): Promise<Index> {
+export async function getPineconeIndex(): Promise<Index> {
   if (_pineconeIndex) {
     return _pineconeIndex;
   }
@@ -37,5 +37,3 @@ async function getPineconeIndex(): Promise<Index> {
 
   return _pineconeIndex;
 }
-
-export default getPineconeIndex;

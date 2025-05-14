@@ -1,4 +1,4 @@
-import getPineconeIndex from "#client.js";
+import { getPineconeIndex } from "#pinecone.js";
 import { PineconeVector } from "#types.js";
 
 export async function batchUpsertVectors(

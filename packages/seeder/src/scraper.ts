@@ -1,36 +1,56 @@
-import axios from "axios";
+import { CardRuling } from "#types.js";
+import { createRulingURLs, getHTML, getInvolvedCards } from "#utils.js";
 import * as cheerio from "cheerio";
-import { CardRuling } from "./types.js";
 
-export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
-  // Get html content
-  const html = await get_html(url);
+/**
+ * Scrape all card rulings from goatformat.com.
+ *
+ * @returns {Promise<CardRuling[]>} - Scraped card rulings.
+ */
+export default async function scrapeRulings(): Promise<CardRuling[]> {
+  // Get and scrape goatformat.com's ruling URLs
+  const urls = createRulingURLs();
+  const rulings = await Promise.all(
+    urls.map((url) => scrapeRulingsFromURL(url))
+  );
+  const flatRulings = rulings.flat();
 
-  // Setup cheerio
+  console.log(`Scraped ${flatRulings.length} rulings from goatformat.com.`);
+  return flatRulings;
+}
+
+/**
+ * Scrape card rulings from URL.
+ *
+ * @param {string} url - Goatformat.com's ruling URL.
+ */
+async function scrapeRulingsFromURL(url: string): Promise<CardRuling[]> {
+  // Get ruling URL's HTML
+  const html = await getHTML(url);
+
+  // Load HTML
   const $ = cheerio.load(html);
-  const rulings: CardRuling[] = [];
-
-  // Setup rulings loop
   const $container = $("div.paragraph").first();
 
   if (!$container.length) {
     throw new Error(`Could not find paragraph element for URL ${url}`);
   }
 
-  let current_card_name: string = "";
-  let current_ruling_type: string = "";
+  const rulings: CardRuling[] = [];
+  let currentCard: string = "";
+  let currentRulingType: string = "";
 
   $container.contents().each((index, element) => {
     const $element = $(element);
 
-    // Check if the element is the card_name
+    // Check if the element is the "card_name"
     if ($element.is("strong")) {
-      current_card_name = $element.text().trim().toLowerCase();
-      current_ruling_type = "";
+      currentCard = $element.text().trim().toLowerCase();
+      currentRulingType = "";
       return;
     }
 
-    // Check if the element is the ruling_type
+    // Check if the element is the "ruling_type"
     if (element.type === "text") {
       const text = $element.text().trim().toLowerCase();
       const match = text.match(
@@ -38,14 +58,14 @@ export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
       );
 
       if (match && match[1]) {
-        current_ruling_type = match[1];
+        currentRulingType = match[1];
       }
 
       return;
     }
 
-    // Check if the element is the rulings
-    if ($element.is("ul") && current_card_name) {
+    // Check if the element is the "ruling"
+    if ($element.is("ul") && currentCard) {
       $element.find("li").each((li_index, li_element) => {
         const $li = $(li_element);
         const ruling = $li
@@ -56,58 +76,18 @@ export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
           .trim()
           .toLowerCase();
 
-        // Get involved cards
-        const involved_cards = get_involved_card_names(ruling);
+        const involvedCards = getInvolvedCards(ruling);
 
         rulings.push({
-          card: current_card_name,
+          card: currentCard,
           ruling: ruling,
-          ruling_type: current_ruling_type,
-          involved_cards: involved_cards,
+          ruling_type: currentRulingType,
+          involved_cards: involvedCards,
           url: url,
         });
       });
     }
   });
 
-  // Return card rulings
   return rulings;
-}
-
-async function get_html(url: string): Promise<string> {
-  const response = await axios.get(url);
-
-  if (response.status !== 200) {
-    throw new Error(
-      `Bad status code. URL ${url} Status code ${response.status}`
-    );
-  }
-
-  return response.data;
-}
-
-function get_involved_card_names(ruling: string): string[] {
-  // Involved card regex are cards wrapped in double quotation marks
-  const regex = /"([^"]+)"/g;
-  const involved_cards: string[] = [];
-  let match;
-
-  while ((match = regex.exec(ruling)) !== null) {
-    if (match[1]) {
-      // Clean card name
-      let card = match[1]
-        .trim()
-        .replace(/\(s\)$/i, "") // Remove trailing "(s)"
-        .replace(/(?:'s)$/i, ""); // Remove trailing "'s"
-
-      if (!/(lord of d|t\.a\.d\.p\.o\.l\.e)/i.test(card)) {
-        card = card.replace(/\.$/, ""); // Remove trailing "."
-      }
-
-      involved_cards.push(card);
-    }
-  }
-
-  // Return unique card names
-  return Array.from(new Set(involved_cards)).sort();
 }

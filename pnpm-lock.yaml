@@ -122,14 +122,11 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
-  packages/ai-rag:
+  packages/embeddings:
     dependencies:
       '@ai-sdk/openai':
         specifier: ^1.3.22
         version: 1.3.22(zod@3.24.4)
-      '@repo/pinecone':
-        specifier: workspace:*
-        version: link:../pinecone
       '@repo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -222,6 +219,12 @@ importers:
 
   packages/seeder:
     dependencies:
+      '@repo/embeddings':
+        specifier: workspace:*
+        version: link:../embeddings
+      '@repo/pinecone':
+        specifier: workspace:*
+        version: link:../pinecone
       axios:
         specifier: ^1.9.0
         version: 1.9.0

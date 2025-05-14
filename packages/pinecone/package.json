@@ -10,7 +10,8 @@
     "#*": "./src/*"
   },
   "exports": {
-    ".": "./dist/index.js"
+    "./types": "./dist/types.js",
+    "./upsert": "./dist/upsert.js"
   },
   "scripts": {
     "build": "tsc",

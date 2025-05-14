@@ -1,13 +1,18 @@
-import { Pinecone } from "@pinecone-database/pinecone";
 import env from "#config.js";
+import { Index, Pinecone } from "@pinecone-database/pinecone";
 
-// Initialize Pinecone Vector Database
-const pc = new Pinecone({
-  apiKey: env.PINECONE_API_KEY,
-});
+let _pineconeIndex: Index | undefined;
 
-async function initPineconeIndex(): Promise<void> {
-  // Get all indexes
+async function getPineconeIndex(): Promise<Index> {
+  if (_pineconeIndex) {
+    return _pineconeIndex;
+  }
+
+  // Initialize Pinecone Vector Database
+  const pc = new Pinecone({
+    apiKey: env.PINECONE_API_KEY,
+  });
+
   const { indexes } = await pc.listIndexes();
   const indexExists = indexes?.find((i) => i.name === env.PINECONE_INDEX_NAME);
 
@@ -27,10 +32,10 @@ async function initPineconeIndex(): Promise<void> {
       suppressConflicts: true,
     });
   }
+
+  _pineconeIndex = pc.index(env.PINECONE_INDEX_NAME);
+
+  return _pineconeIndex;
 }
 
-await initPineconeIndex();
-
-const pcIndex = pc.index(env.PINECONE_INDEX_NAME);
-
-export default pcIndex;
+export default getPineconeIndex;

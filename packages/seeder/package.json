@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "check-types": "tsc --noEmit",
-    "lint": "eslint src --max-warnings 0"
+    "lint": "eslint src --max-warnings 0",
+    "db:seed": "tsx src/seed"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

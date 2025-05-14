@@ -1,5 +1,5 @@
-import * as cheerio from "cheerio";
 import axios from "axios";
+import * as cheerio from "cheerio";
 import { CardRuling } from "./types.js";
 
 export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
@@ -25,16 +25,16 @@ export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
 
     // Check if the element is the card_name
     if ($element.is("strong")) {
-      current_card_name = $element.text().trim();
+      current_card_name = $element.text().trim().toLowerCase();
       current_ruling_type = "";
       return;
     }
 
     // Check if the element is the ruling_type
     if (element.type === "text") {
-      const text = $element.text().trim();
+      const text = $element.text().trim().toLowerCase();
       const match = text.match(
-        /(Individual Card FAQs|Netrep Rulings|Netrep Q&As)/i
+        /(individual card faqs|netrep rulings|netrep q&as)/i
       );
 
       if (match && match[1]) {
@@ -48,23 +48,23 @@ export async function get_rulings_from_url(url: string): Promise<CardRuling[]> {
     if ($element.is("ul") && current_card_name) {
       $element.find("li").each((li_index, li_element) => {
         const $li = $(li_element);
-        const content = $li
+        const ruling = $li
           .text()
           .replace(/\s+/g, " ") // Replace \n + whitespace to single space
           .replace(/[“”]/g, '"') // Replace double-smart-quotes with double-quotes
           .replace(/[\u2018\u2019]/g, "'") // Replace single-smart-quote with single-quote
-          .trim();
+          .trim()
+          .toLowerCase();
 
         // Get involved cards
-        const involved_cards = get_involved_card_names(content);
+        const involved_cards = get_involved_card_names(ruling);
 
         rulings.push({
           card: current_card_name,
-          content: content,
-          metadata: {
-            ruling_type: current_ruling_type,
-            involved_cards: involved_cards,
-          },
+          ruling: ruling,
+          ruling_type: current_ruling_type,
+          involved_cards: involved_cards,
+          url: url,
         });
       });
     }
@@ -100,7 +100,7 @@ function get_involved_card_names(ruling: string): string[] {
         .replace(/\(s\)$/i, "") // Remove trailing "(s)"
         .replace(/(?:'s)$/i, ""); // Remove trailing "'s"
 
-      if (!/(Lord of D|T\.A\.D\.P\.O\.L\.E)/i.test(card)) {
+      if (!/(lord of d|t\.a\.d\.p\.o\.l\.e)/i.test(card)) {
         card = card.replace(/\.$/, ""); // Remove trailing "."
       }
 

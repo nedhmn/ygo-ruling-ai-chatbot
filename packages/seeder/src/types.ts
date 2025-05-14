@@ -1,10 +1,7 @@
-type RulingMetadata = {
-  ruling_type: string | null;
-  involved_cards: string[];
-};
-
 export type CardRuling = {
-  card: string | null;
-  content: string;
-  metadata: RulingMetadata;
+  card: string;
+  ruling: string;
+  ruling_type: string;
+  involved_cards: string[];
+  url: string;
 };

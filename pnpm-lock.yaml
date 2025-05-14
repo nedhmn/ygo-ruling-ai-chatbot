@@ -158,6 +158,31 @@ importers:
         specifier: ^8.31.0
         version: 8.31.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.2)
 
+  packages/pinecone:
+    dependencies:
+      '@pinecone-database/pinecone':
+        specifier: ^6.0.0
+        version: 6.0.0
+      zod:
+        specifier: ^3.24.4
+        version: 3.24.4
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
+      eslint:
+        specifier: ^9.26.0
+        version: 9.26.0(jiti@2.4.2)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+
   packages/seeder:
     dependencies:
       axios:
@@ -770,6 +795,10 @@ packages:
   '@parcel/watcher@2.5.1':
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
+
+  '@pinecone-database/pinecone@6.0.0':
+    resolution: {integrity: sha512-Qicqb5G7g01vMqm/gPdB8mW/6HmNb87NWz5M4TMtyLAMHxTjbnm8sgnUL2/eCyY1Th55oobjpM65exTatFMQvA==}
+    engines: {node: '>=18.0.0'}
 
   '@radix-ui/react-compose-refs@1.1.2':
     resolution: {integrity: sha512-z4eqJvfiNnFMHIIvXP3CY57y2WJs5g2v3X0zm9mEJkrkNv4rDxu+sg9Jh8EkXyeqBkB7SOcboo9dMVqhyrACIg==}
@@ -4177,6 +4206,8 @@ snapshots:
       '@parcel/watcher-win32-arm64': 2.5.1
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
+
+  '@pinecone-database/pinecone@6.0.0': {}
 
   '@radix-ui/react-compose-refs@1.1.2(@types/react@19.1.0)(react@19.1.0)':
     dependencies:

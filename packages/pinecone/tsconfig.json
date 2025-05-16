@@ -1,10 +1,10 @@
 {
-  "extends": "@repo/tsconfig/react.json",
+  "extends": "@repo/tsconfig/base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@repo/ui/*": ["./src/*"]
+      "#*": ["./src/*"]
     }
   },
   "include": ["src"],

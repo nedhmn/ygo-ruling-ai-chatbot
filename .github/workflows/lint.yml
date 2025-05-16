@@ -45,6 +45,8 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      # Need to build before "check-types" for export types to be available
+
       - name: Build
         run: pnpm build
 

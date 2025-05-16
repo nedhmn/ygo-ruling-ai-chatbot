@@ -10,9 +10,18 @@
     "#*": "./src/*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./types": "./dist/types.js",
-    "./upsert": "./dist/upsert.js"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "types": "./dist/types.d.ts"
+    },
+    "./upsert": {
+      "import": "./dist/upsert.js",
+      "types": "./dist/upsert.d.ts"
+    }
   },
   "scripts": {
     "build": "tsc",

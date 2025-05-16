@@ -43,4 +43,10 @@ jobs:
         run: pnpm install
 
       - name: Lint
-        run: bash scripts/lint.sh
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
+
+      - name: Check types
+        run: pnpm check-types

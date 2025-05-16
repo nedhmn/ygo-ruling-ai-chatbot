@@ -10,6 +10,10 @@ let _embeddingModel: EmbeddingModel<string> | undefined;
  * @returns {EmbeddingModel<string>} - Embedding model.
  */
 export function getEmbeddingModel(): EmbeddingModel<string> {
+  if (_embeddingModel) {
+    return _embeddingModel;
+  }
+
   const openai = getOpenAIClient();
 
   // ref: https://ai-sdk.dev/providers/ai-sdk-providers/openai#embedding-models

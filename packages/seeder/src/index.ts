@@ -4,6 +4,7 @@ import { generateEmbeddings } from "@repo/embeddings";
 import { upsertVectors } from "@repo/pinecone/upsert";
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { getPineconeIndex } from "@repo/pinecone";
 
 /**
  * Scrape, embed, and upsert rulings data to Pinecone.
@@ -25,6 +26,17 @@ async function seedDatabase(): Promise<void> {
     const rulingsJSON = readFileSync(dataFilePath, "utf-8");
     rulings = JSON.parse(rulingsJSON);
     console.log(`Loaded ${rulings.length} rulings from ${dataFilePath}.`);
+  }
+
+  const pineconeIndex = await getPineconeIndex();
+  const { totalRecordCount } = await pineconeIndex.describeIndexStats();
+
+  // Exit if Pinecone has already been seeded
+  if (totalRecordCount && totalRecordCount > 0) {
+    console.log(
+      `Pinecone database is already seeded with ${totalRecordCount} records. Exiting...`
+    );
+    return;
   }
 
   const batchSize = 100;

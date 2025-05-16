@@ -83,6 +83,7 @@ async function scrapeRulingsFromURL(url: string): Promise<CardRuling[]> {
           ruling: ruling,
           ruling_type: currentRulingType,
           involved_cards: involvedCards,
+          title: $("head title").text().trim(),
           url: url,
         });
       });

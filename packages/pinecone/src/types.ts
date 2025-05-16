@@ -3,7 +3,8 @@ export type PineconeVector = {
   values: number[];
   metadata: {
     card: string;
-    text: string;
+    ruling: string;
+    title: string;
     url: string;
   };
 };

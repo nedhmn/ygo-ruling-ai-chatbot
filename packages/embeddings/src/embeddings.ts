@@ -1,11 +1,13 @@
 import env from "#config.js";
 import getOpenAIClient from "#openai.js";
-import { embed, EmbeddingModel } from "ai";
+import { embed, embedMany, EmbeddingModel } from "ai";
 
 let _embeddingModel: EmbeddingModel<string> | undefined;
 
 /**
  * Get Embedding Model from OpenAI.
+ *
+ * @returns {EmbeddingModel<string>} - Embedding model.
  */
 export function getEmbeddingModel(): EmbeddingModel<string> {
   const openai = getOpenAIClient();
@@ -19,19 +21,34 @@ export function getEmbeddingModel(): EmbeddingModel<string> {
 }
 
 /**
+ * Generate embeddings from an array of texts.
+ *
+ * @param {string[]} texts - Array of texts to embed.
+ * @returns {Promise<number[][]>} - An array of embeddings.
+ */
+export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
+  const embeddingModel = getEmbeddingModel();
+
+  const { embeddings } = await embedMany({
+    model: embeddingModel,
+    values: texts,
+  });
+
+  return embeddings;
+}
+
+/**
  * Generate embeddings from text.
  *
  * @param {string} text - The text to embed.
  * @returns {Promise<number[]>} - The embeddings of the text.
  */
 export async function generateEmbedding(text: string): Promise<number[]> {
-  // Initialize embedding model and clean input
   const embeddingModel = getEmbeddingModel();
-  const input = text.replaceAll("\\n", " ");
 
   const { embedding } = await embed({
     model: embeddingModel,
-    value: input,
+    value: text,
   });
 
   return embedding;

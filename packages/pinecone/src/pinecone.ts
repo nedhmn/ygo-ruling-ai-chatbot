@@ -3,6 +3,11 @@ import { Index, Pinecone } from "@pinecone-database/pinecone";
 
 let _pineconeIndex: Index | undefined;
 
+/**
+ * Get and cache a PineconeIndex instance.
+ *
+ * @returns {Promise<Index>} - Pinecone Index instance.
+ */
 export async function getPineconeIndex(): Promise<Index> {
   if (_pineconeIndex) {
     return _pineconeIndex;

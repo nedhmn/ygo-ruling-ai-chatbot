@@ -1,8 +1,7 @@
 import scrapeRulings from "#scraper.js";
 import { CardRuling } from "#types.js";
-import { generateEmbedding } from "@repo/embeddings";
-import { PineconeVector } from "@repo/pinecone/types";
-import { batchUpsertVectors } from "@repo/pinecone/upsert";
+import { generateEmbeddings } from "@repo/embeddings";
+import { upsertVectors } from "@repo/pinecone/upsert";
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
@@ -10,38 +9,71 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
  * Scrape, embed, and upsert rulings data to Pinecone.
  */
 async function seedDatabase(): Promise<void> {
+  console.log("Starting seedDatabase...");
+
   const dataFilePath = "data/parsed-rulings.json";
   let rulings: CardRuling[] = [];
 
   // Scrape rulings data if it isn't saved already
   if (!existsSync(dataFilePath)) {
+    console.log(`Data file not found at ${dataFilePath}, scraping rulings...`);
     rulings = await scrapeRulings();
     writeFileSync(dataFilePath, JSON.stringify(rulings, null, 2), "utf-8");
+    console.log(`Saved ${rulings.length} rulings to ${dataFilePath}.`);
   } else {
+    console.log(`Data file found at ${dataFilePath}, loading rulings...`);
     const rulingsJSON = readFileSync(dataFilePath, "utf-8");
     rulings = JSON.parse(rulingsJSON);
+    console.log(`Loaded ${rulings.length} rulings from ${dataFilePath}.`);
   }
 
-  const vectorsToUpsert: PineconeVector[] = [];
+  const batchSize = 100;
+  const totalBatches = Math.ceil(rulings.length / batchSize);
+  console.log(
+    `Processing ${rulings.length} rulings in ${totalBatches} batches of ${batchSize}...`
+  );
 
-  for (const ruling of rulings.slice(0, 10)) {
-    // Prepend ruling with card name
-    const augmentedText = `ruling for "${ruling.card}": ${ruling.ruling}`;
-    const embeddingValues = await generateEmbedding(augmentedText);
+  // Embed and upsert rulings to Pinecone in batches
+  for (let i = 0; i < rulings.length; i += batchSize) {
+    const batchNumber = Math.floor(i / batchSize) + 1;
+    const batch = rulings.slice(i, i + batchSize);
+    console.log(
+      `Processing batch ${batchNumber}/${totalBatches} (items ${i + 1}-${Math.min(i + batchSize, rulings.length)})`
+    );
 
-    vectorsToUpsert.push({
-      id: randomUUID(),
-      values: embeddingValues,
-      metadata: {
-        card: ruling.card,
-        text: ruling.ruling,
-        url: ruling.url,
-      },
+    // Augment rulings to include the card name
+    const augmentedRulings = batch.map(
+      (ruling) => `ruling for ${ruling.card}: ${ruling.ruling}`
+    );
+
+    // Get embeddings from augmentedRulings
+    console.log(`Batch ${batchNumber}: Generating embeddings...`);
+    const batchedEmbeddings = await generateEmbeddings(augmentedRulings);
+    console.log(
+      `Batch ${batchNumber}: Generated embeddings for ${batchedEmbeddings.length} items.`
+    );
+
+    // Create rulingVectors to upsert to Pinecone
+    const rulingVectors = batch.map((ruling, index) => {
+      return {
+        id: randomUUID(),
+        values: batchedEmbeddings[index]!,
+        metadata: {
+          card: ruling.card,
+          ruling: ruling.ruling,
+          title: ruling.title,
+          url: ruling.url,
+        },
+      };
     });
+
+    // Upsert vectors
+    console.log(`Batch ${batchNumber}: Upserting vectors to Pinecone...`);
+    await upsertVectors(rulingVectors);
+    console.log(`Batch ${batchNumber}: Upsert complete.`);
   }
 
-  // Batch upsert vectors to Pinecone
-  await batchUpsertVectors(vectorsToUpsert, 100);
+  console.log("seedDatabase complete.");
 }
 
 await seedDatabase();

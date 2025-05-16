@@ -1,12 +1,15 @@
 {
   "extends": "@repo/tsconfig/nextjs.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "allowJs": true
+    ]
   },
   "include": [
     "**/*.ts",
@@ -15,7 +18,5 @@
     "next.config.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

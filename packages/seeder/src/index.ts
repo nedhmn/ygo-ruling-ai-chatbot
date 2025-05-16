@@ -1,10 +1,10 @@
 import scrapeRulings from "#scraper.js";
 import { CardRuling } from "#types.js";
 import { generateEmbeddings } from "@repo/embeddings";
+import { getPineconeIndex } from "@repo/pinecone";
 import { upsertVectors } from "@repo/pinecone/upsert";
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { getPineconeIndex } from "@repo/pinecone";
 
 /**
  * Scrape, embed, and upsert rulings data to Pinecone.

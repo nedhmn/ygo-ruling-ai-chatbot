@@ -1,9 +1,8 @@
-import { loadEnvFile } from "@repo/utils";
+import dotenv from "dotenv";
 import { z } from "zod";
 
-// Load environment variables
 if (process.env.NODE_ENV !== "production") {
-  loadEnvFile("../.env.local", import.meta.url);
+  dotenv.config({ path: ".env.local" });
 }
 
 const envSchema = z.object({

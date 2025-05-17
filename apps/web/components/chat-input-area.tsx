@@ -36,7 +36,7 @@ const ChatInputArea = ({
     <Textarea
       value={input}
       placeholder="How can I help with Yu-Gi-Oh! rulings?"
-      className="pr-12 py-3 min-h-[60px] max-h-[120px] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none border-0 resize-none"
+      className="pr-12 p-5 min-h-[60px] max-h-[120px] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none border-0 resize-none"
       disabled={isGeneratingResponse}
       autoFocus
       onChange={(event) => {

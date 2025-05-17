@@ -7,7 +7,7 @@
     "dist"
   ],
   "imports": {
-    "#*": "./src/*"
+    "#*": "./dist/*"
   },
   "exports": {
     ".": {

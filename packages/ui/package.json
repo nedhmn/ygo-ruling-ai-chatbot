@@ -11,13 +11,9 @@
   },
   "exports": {
     "./styles.css": "./dist/index.css",
-    "./components/*": {
-      "import": "./dist/components/*.js",
-      "types": "./dist/components/*.d.ts"
-    },
-    "./lib/*": {
-      "import": "./dist/lib/*.js",
-      "types": "./dist/lib/*.d.ts"
+    "./*": {
+      "import": "./dist/*",
+      "types": "./dist/*.d.ts"
     }
   },
   "sideEffects": [

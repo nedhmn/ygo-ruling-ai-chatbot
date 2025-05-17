@@ -13,7 +13,7 @@ const envSchema = z.object({
     .int()
     .default(1536)
     .describe(
-      "Vector database dimensions need to match embedding model dimensions"
+      "Vector database dimensions need to match embedding model dimensions",
     ),
   PINECONE_INDEX_METRIC: z
     .enum(["cosine", "dotproduct", "euclidean"] as const)

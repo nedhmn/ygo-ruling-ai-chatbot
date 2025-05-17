@@ -36,7 +36,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
                   key={message.id}
                   className={cn(
                     "flex",
-                    message.role === "user" ? "justify-end" : "justify-start"
+                    message.role === "user" ? "justify-end" : "justify-start",
                   )}
                 >
                   <div
@@ -44,7 +44,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
                       "rounded-lg px-4 py-2 max-w-[80%]",
                       message.role === "user"
                         ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-foreground system-message-styles"
+                        : "bg-secondary text-foreground system-message-styles",
                     )}
                   >
                     <Markdown components={markdownComponents}>

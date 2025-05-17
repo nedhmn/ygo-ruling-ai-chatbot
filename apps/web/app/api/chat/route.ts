@@ -1,6 +1,8 @@
 import getOpenAIClient from "@repo/embeddings/openai";
 import { streamText } from "ai";
 
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
@@ -19,7 +21,7 @@ export async function POST(req: Request) {
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
-      },
+      }
     );
   }
 }

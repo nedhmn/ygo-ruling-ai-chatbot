@@ -21,7 +21,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto w-full px-4 pt-20">
+      <div className="max-w-3xl mx-auto w-full px-4 pt-20">
         <div className="py-4">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center min-h-[70vh]">
@@ -44,7 +44,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
                       "rounded-lg px-4 py-2 max-w-[80%]",
                       message.role === "user"
                         ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-foreground"
+                        : "bg-secondary text-foreground system-message-styles"
                     )}
                   >
                     <Markdown components={markdownComponents}>

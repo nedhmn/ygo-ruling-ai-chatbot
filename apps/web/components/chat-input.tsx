@@ -1,45 +1,36 @@
 "use client";
 
 import { UseChatHelpers } from "@ai-sdk/react";
-import { Button } from "@repo/ui/components/ui/button";
-import { Input } from "@repo/ui/components/ui/input";
-import { Send } from "lucide-react";
+import ChatInputControls from "@/components/chat-input-controls";
+import ChatInputArea from "@/components/chat-input-area";
+import { useState } from "react";
 
-type ChatInputProps = {
-  input: UseChatHelpers["input"];
-  handleInputChange: UseChatHelpers["handleInputChange"];
-  handleSubmit: UseChatHelpers["handleSubmit"];
-  status: UseChatHelpers["status"];
-};
+interface ChatInputProps {
+  chatHelpers: UseChatHelpers;
+}
 
-const ChatInput = ({
-  input,
-  handleInputChange,
-  handleSubmit,
-  status,
-}: ChatInputProps) => {
-  const isGeneratingResponse = ["streaming", "submitted"].includes(status);
+const ChatInput = ({ chatHelpers }: ChatInputProps) => {
+  const [input, setInput] = useState<string>("");
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background py-4">
-      <div className="max-w-4xl mx-auto w-full px-4">
-        <form onSubmit={handleSubmit} className="relative">
-          <Input
-            value={input}
-            onChange={handleInputChange}
-            placeholder="How can I help with Yu-Gi-Oh! rulings?"
-            className="pr-12 py-6 rounded-full focus-visible:ring-1 focus-visible:ring-offset-1"
-            disabled={isGeneratingResponse}
+      <div className="max-w-3xl mx-auto w-full px-4">
+        <div className="flex flex-col bg-secondary rounded-[10px]">
+          <ChatInputArea
+            chatHelpers={chatHelpers}
+            input={input}
+            setInput={setInput}
           />
-          <Button
-            type="submit"
-            size="icon"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full h-8 w-8 focus-visible:ring-1 focus-visible:ring-offset-1"
-            disabled={isGeneratingResponse || input === ""}
-          >
-            <Send className="h-4 w-4" />
-          </Button>
-        </form>
+          <ChatInputControls
+            chatHelpers={chatHelpers}
+            input={input}
+            setInput={setInput}
+          />
+        </div>
+        <div className="text-muted-foreground text-xs mt-2">
+          This is an AI chatbot using RAG. It is trained on GOAT Format
+          Yu-Gi-Oh! rulings only.
+        </div>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      <ChatMessages messages={messages} status={status}></ChatMessages>
+      <ChatMessages messages={messages}></ChatMessages>
       <ChatInput
         input={input}
         handleInputChange={handleInputChange}

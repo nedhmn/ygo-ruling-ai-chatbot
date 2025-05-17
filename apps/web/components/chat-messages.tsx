@@ -1,21 +1,23 @@
 import { UIMessage } from "ai";
-import { UseChatHelpers } from "@ai-sdk/react";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
+import Markdown from "react-markdown";
+import { markdownComponents } from "@repo/ui/components/markdown-components";
+import { cn } from "@repo/ui/lib/utils";
 
 type ChatMessagesProps = {
   messages: Array<UIMessage>;
-  status: UseChatHelpers["status"];
 };
 
-const ChatMessages = ({ messages, status }: ChatMessagesProps) => {
+const ChatMessages = ({ messages }: ChatMessagesProps) => {
   const messagesRef = useRef<HTMLDivElement>(null);
-  const messagesLength = useMemo(() => messages.length, [messages]);
 
   useEffect(() => {
     if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      messagesRef.current.scrollIntoView({
+        behavior: messages.length > 1 ? "smooth" : "auto",
+      });
     }
-  }, [messagesLength]);
+  }, [messages]);
 
   return (
     <>
@@ -32,16 +34,22 @@ const ChatMessages = ({ messages, status }: ChatMessagesProps) => {
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={cn(
+                    "flex",
+                    message.role === "user" ? "justify-end" : "justify-start"
+                  )}
                 >
                   <div
-                    className={`rounded-lg px-4 py-2 max-w-[80%] ${
+                    className={cn(
+                      "rounded-lg px-4 py-2 max-w-[80%]",
                       message.role === "user"
                         ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-foreground"
-                    }`}
+                        : "bg-secondary text-foreground"
+                    )}
                   >
-                    {message.content}
+                    <Markdown components={markdownComponents}>
+                      {message.content}
+                    </Markdown>
                   </div>
                 </div>
               ))}

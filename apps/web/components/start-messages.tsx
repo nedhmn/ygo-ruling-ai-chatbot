@@ -28,9 +28,12 @@ const StartMessages = ({ chatHelpers, setInput }: StartMessagesProps) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh]">
-      <p className="text-foreground text-lg mb-8">
-        {"Hey there! What's on your mind?"}
-      </p>
+      <h1 className="w-full text-2xl mb-9 tracking-tight sm:text-3xl text-primary-100 flex flex-col items-center justify-center text-center">
+        {"Welcome to Yu-Gi-Oh! Ruling Bot"}
+        <span className="text-gray-400">
+          {"Ask me anything about Goat Format rulings and interactions."}
+        </span>
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
         {STARTER_PROMPTS.map((question, index) => (

@@ -22,7 +22,7 @@ export async function getHTML(url: string): Promise<string> {
 
   if (response.status !== 200) {
     throw new Error(
-      `Bad status code. URL ${url} Status code ${response.status}`
+      `Bad status code. URL ${url} Status code ${response.status}`,
     );
   }
 

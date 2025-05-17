@@ -11,7 +11,7 @@ export default async function scrapeRulings(): Promise<CardRuling[]> {
   // Get and scrape goatformat.com's ruling URLs
   const urls = createRulingURLs();
   const rulings = await Promise.all(
-    urls.map((url) => scrapeRulingsFromURL(url))
+    urls.map((url) => scrapeRulingsFromURL(url)),
   );
   const flatRulings = rulings.flat();
 
@@ -54,7 +54,7 @@ async function scrapeRulingsFromURL(url: string): Promise<CardRuling[]> {
     if (element.type === "text") {
       const text = $element.text().trim().toLowerCase();
       const match = text.match(
-        /(individual card faqs|netrep rulings|netrep q&as)/i
+        /(individual card faqs|netrep rulings|netrep q&as)/i,
       );
 
       if (match && match[1]) {

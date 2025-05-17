@@ -21,6 +21,10 @@
     "./upsert": {
       "import": "./dist/upsert.js",
       "types": "./dist/upsert.d.ts"
+    },
+    "./query": {
+      "import": "./dist/query.js",
+      "types": "./dist/query.d.ts"
     }
   },
   "scripts": {

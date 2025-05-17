@@ -8,6 +8,7 @@ import { toast } from "sonner";
 const Chat = () => {
   const chatHelpers = useChat({
     id: "primary",
+    maxSteps: 3,
     onError: () => {
       toast.error("An error occurred, please try again!");
     },

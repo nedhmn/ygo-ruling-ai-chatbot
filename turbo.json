@@ -5,7 +5,12 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["OPENAI_API_KEY", "PINECONE_API_KEY", "PINECONE_INDEX_NAME"],
+      "env": [
+        "OPENAI_API_KEY",
+        "OPENAI_MODEL",
+        "PINECONE_API_KEY",
+        "PINECONE_INDEX_NAME"
+      ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", "out/**"]
     },

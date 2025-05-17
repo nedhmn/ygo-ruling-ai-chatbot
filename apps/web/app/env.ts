@@ -8,6 +8,7 @@ export const env = createEnv({
    */
   server: {
     OPENAI_API_KEY: z.string(),
+    OPENAI_MODEL: z.string().default("o4-mini-2025-04-16"),
     PINECONE_API_KEY: z.string(),
     PINECONE_INDEX_NAME: z.string(),
   },
@@ -24,6 +25,7 @@ export const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
+    OPENAI_MODEL: process.env.OPENAI_MODEL,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     PINECONE_API_KEY: process.env.PINECONE_API_KEY,
     PINECONE_INDEX_NAME: process.env.PINECONE_INDEX_NAME,

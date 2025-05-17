@@ -1,4 +1,4 @@
-export type PineconeVector = {
+export interface PineconeVector {
   id: string;
   values: number[];
   metadata: {
@@ -7,4 +7,4 @@ export type PineconeVector = {
     title: string;
     url: string;
   };
-};
+}

@@ -1,15 +1,18 @@
-import { UIMessage } from "ai";
 import { useEffect, useRef } from "react";
 import Markdown from "react-markdown";
 import { markdownComponents } from "@repo/ui/components/markdown-components";
 import { cn } from "@repo/ui/lib/utils";
+import StartMessages from "./start-messages";
+import { UseChatHelpers } from "@ai-sdk/react";
 
 type ChatMessagesProps = {
-  messages: Array<UIMessage>;
+  chatHelpers: UseChatHelpers;
+  setInput: (value: string) => void;
 };
 
-const ChatMessages = ({ messages }: ChatMessagesProps) => {
+const ChatMessages = ({ chatHelpers, setInput }: ChatMessagesProps) => {
   const messagesRef = useRef<HTMLDivElement>(null);
+  const { messages } = chatHelpers;
 
   useEffect(() => {
     if (messagesRef.current) {
@@ -24,11 +27,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
       <div className="max-w-3xl mx-auto w-full px-4 pt-20">
         <div className="py-4">
           {messages.length === 0 ? (
-            <div className="flex items-center justify-center min-h-[70vh]">
-              <p className="text-foreground text-lg">
-                {"Hey there! What's on your mind?"}
-              </p>
-            </div>
+            <StartMessages chatHelpers={chatHelpers} setInput={setInput} />
           ) : (
             <div className="space-y-6">
               {messages.map((message) => (
@@ -36,7 +35,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
                   key={message.id}
                   className={cn(
                     "flex",
-                    message.role === "user" ? "justify-end" : "justify-start",
+                    message.role === "user" ? "justify-end" : "justify-start"
                   )}
                 >
                   <div
@@ -44,7 +43,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
                       "rounded-lg px-4 py-2 max-w-[80%]",
                       message.role === "user"
                         ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-foreground system-message-styles",
+                        : "bg-secondary text-foreground system-message-styles"
                     )}
                   >
                     <Markdown components={markdownComponents}>

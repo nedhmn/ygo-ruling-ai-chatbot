@@ -3,15 +3,15 @@
 import { UseChatHelpers } from "@ai-sdk/react";
 import ChatInputControls from "@/components/chat-input-controls";
 import ChatInputArea from "@/components/chat-input-area";
-import { useState } from "react";
+import Footnote from "./footnote";
 
 interface ChatInputProps {
   chatHelpers: UseChatHelpers;
+  input: string;
+  setInput: (value: string) => void;
 }
 
-const ChatInput = ({ chatHelpers }: ChatInputProps) => {
-  const [input, setInput] = useState<string>("");
-
+const ChatInput = ({ chatHelpers, input, setInput }: ChatInputProps) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background py-4 z-10">
       <div className="max-w-3xl mx-auto w-full px-4">
@@ -27,10 +27,7 @@ const ChatInput = ({ chatHelpers }: ChatInputProps) => {
             setInput={setInput}
           />
         </div>
-        <div className="text-muted-foreground text-xs mt-2">
-          This is an AI chatbot using RAG. It is trained on GOAT Format
-          Yu-Gi-Oh! rulings only.
-        </div>
+        <Footnote />
       </div>
     </div>
   );

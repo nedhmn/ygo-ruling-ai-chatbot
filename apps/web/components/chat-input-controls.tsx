@@ -22,7 +22,6 @@ const ChatInputControls = ({
   const { handleSendMessage } = useSendMessage({
     chatHelpers,
     isGeneratingResponse,
-    input,
     setInput,
   });
 
@@ -31,7 +30,7 @@ const ChatInputControls = ({
       <Button
         size="icon"
         className="transform rounded-[10px] h-8 w-8 focus-visible:ring-1 focus-visible:ring-offset-1"
-        onClick={handleSendMessage}
+        onClick={() => handleSendMessage(input)}
         aria-label={isGeneratingResponse ? "Stop generating" : "Send message"}
       >
         {isGeneratingResponse ? <StopCircleIcon /> : <ArrowUpIcon />}

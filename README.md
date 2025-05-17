@@ -1,1 +1,1 @@
-# YGO Ruling AI Chatbot
+# Yu-Gi-Oh! Ruling AI Chatbot

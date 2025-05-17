@@ -1,8 +1,8 @@
-import { loadEnvFile } from "@repo/utils";
 import { z } from "zod";
+import dotenv from "dotenv";
 
 if (process.env.NODE_ENV !== "production") {
-  loadEnvFile("../.env.local", import.meta.url);
+  dotenv.config({ path: ".env.local" });
 }
 
 const envSchema = z.object({
@@ -13,7 +13,7 @@ const envSchema = z.object({
     .int()
     .default(1536)
     .describe(
-      "Vector database dimensions need to match embedding model dimensions"
+      "Vector database dimensions need to match embedding model dimensions",
     ),
   PINECONE_INDEX_METRIC: z
     .enum(["cosine", "dotproduct", "euclidean"] as const)

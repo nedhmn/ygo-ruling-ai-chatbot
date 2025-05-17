@@ -1,10 +1,10 @@
 import scrapeRulings from "#scraper.js";
 import { CardRuling } from "#types.js";
 import { generateEmbeddings } from "@repo/embeddings";
+import { getPineconeIndex } from "@repo/pinecone";
 import { upsertVectors } from "@repo/pinecone/upsert";
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { getPineconeIndex } from "@repo/pinecone";
 
 /**
  * Scrape, embed, and upsert rulings data to Pinecone.
@@ -34,7 +34,7 @@ async function seedDatabase(): Promise<void> {
   // Exit if Pinecone has already been seeded
   if (totalRecordCount && totalRecordCount > 0) {
     console.log(
-      `Pinecone database is already seeded with ${totalRecordCount} records. Exiting...`
+      `Pinecone database is already seeded with ${totalRecordCount} records. Exiting...`,
     );
     return;
   }
@@ -42,7 +42,7 @@ async function seedDatabase(): Promise<void> {
   const batchSize = 100;
   const totalBatches = Math.ceil(rulings.length / batchSize);
   console.log(
-    `Processing ${rulings.length} rulings in ${totalBatches} batches of ${batchSize}...`
+    `Processing ${rulings.length} rulings in ${totalBatches} batches of ${batchSize}...`,
   );
 
   // Embed and upsert rulings to Pinecone in batches
@@ -50,19 +50,19 @@ async function seedDatabase(): Promise<void> {
     const batchNumber = Math.floor(i / batchSize) + 1;
     const batch = rulings.slice(i, i + batchSize);
     console.log(
-      `Processing batch ${batchNumber}/${totalBatches} (items ${i + 1}-${Math.min(i + batchSize, rulings.length)})`
+      `Processing batch ${batchNumber}/${totalBatches} (items ${i + 1}-${Math.min(i + batchSize, rulings.length)})`,
     );
 
     // Augment rulings to include the card name
     const augmentedRulings = batch.map(
-      (ruling) => `ruling for ${ruling.card}: ${ruling.ruling}`
+      (ruling) => `ruling for ${ruling.card}: ${ruling.ruling}`,
     );
 
     // Get embeddings from augmentedRulings
     console.log(`Batch ${batchNumber}: Generating embeddings...`);
     const batchedEmbeddings = await generateEmbeddings(augmentedRulings);
     console.log(
-      `Batch ${batchNumber}: Generated embeddings for ${batchedEmbeddings.length} items.`
+      `Batch ${batchNumber}: Generated embeddings for ${batchedEmbeddings.length} items.`,
     );
 
     // Create rulingVectors to upsert to Pinecone

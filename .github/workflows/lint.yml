@@ -45,10 +45,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      # Need to build before "check-types" for export types to be available
-
-      - name: Build
-        run: pnpm build
-
       - name: Check types
-        run: pnpm check-types
+        run: pnpm build
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+          PINECONE_INDEX_NAME: ${{ secrets.PINECONE_INDEX_NAME }}

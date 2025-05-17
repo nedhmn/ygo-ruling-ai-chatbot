@@ -21,7 +21,6 @@ export async function POST(req: Request) {
         The getInformation tool returns an array of objects containing the keys "title" and "url".
         Always link the URL as the source (with the title as the hyperlink text) for any ruling context you use.
         If the tool's results do not completely answer the question, respond with "Sorry, I don't know."
-        If a query involves content outside of Goat Format rulings, respond with "I only do Goat Format rulings."
         Check your knowledge base before answering any questions.
       `,
       tools: {

@@ -22,14 +22,13 @@ const ChatInputArea = ({
   const { handleSendMessage } = useSendMessage({
     chatHelpers,
     isGeneratingResponse,
-    input,
     setInput,
   });
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      handleSendMessage();
+      handleSendMessage(input);
     }
   };
 

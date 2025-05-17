@@ -32,6 +32,7 @@ const ChatInputControls = ({
         size="icon"
         className="transform rounded-[10px] h-8 w-8 focus-visible:ring-1 focus-visible:ring-offset-1"
         onClick={handleSendMessage}
+        aria-label={isGeneratingResponse ? "Stop generating" : "Send message"}
       >
         {isGeneratingResponse ? <StopCircleIcon /> : <ArrowUpIcon />}
       </Button>

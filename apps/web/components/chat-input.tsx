@@ -13,7 +13,7 @@ const ChatInput = ({ chatHelpers }: ChatInputProps) => {
   const [input, setInput] = useState<string>("");
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background py-4">
+    <div className="fixed bottom-0 left-0 right-0 bg-background py-4 z-10">
       <div className="max-w-3xl mx-auto w-full px-4">
         <div className="flex flex-col bg-secondary rounded-[10px]">
           <ChatInputArea

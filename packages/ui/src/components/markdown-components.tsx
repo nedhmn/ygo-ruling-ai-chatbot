@@ -1,7 +1,7 @@
 import { Components } from "react-markdown";
 
 export const markdownComponents: Partial<Components> = {
-  p: ({ children }) => <p className="leading-6">{children}</p>,
+  p: ({ children }) => <p className="leading-7">{children}</p>,
   pre: ({ children }) => <>{children}</>,
   ol: ({ children, ...props }) => {
     return (

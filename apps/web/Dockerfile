@@ -22,16 +22,15 @@ RUN turbo prune web --docker
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
 
-# Enable remote caching. Hidden in final build because of multi-stage builds.
-# ref: https://turborepo.com/docs/guides/tools/docker#remote-caching
-ARG TURBO_TEAM
-ARG TURBO_TOKEN
+# Include environment variables during build for t3oss env validation
+# ref: https://create.t3.gg/en/deployment/docker
 ARG OPENAI_API_KEY
 ARG PINECONE_API_KEY
 ARG PINECONE_INDEX_NAME
 
-ENV TURBO_TEAM=${TURBO_TEAM}
-ENV TURBO_TOKEN=${TURBO_TOKEN}
+# Sensitive envs are fine in multi-stage builds that aren't used as base image in final image
+# ref: https://docs.docker.com/build/building/variables/#scoping
+# ref: https://turborepo.com/docs/guides/tools/docker#remote-caching
 ENV OPENAI_API_KEY=${OPENAI_API_KEY}
 ENV PINECONE_API_KEY=${PINECONE_API_KEY}
 ENV PINECONE_INDEX_NAME=${PINECONE_INDEX_NAME}

@@ -5,5 +5,9 @@ services:
       context: .
       dockerfile: ./apps/web/Dockerfile
     restart: always
+    ports:
+      - 3000:3000
     env_file:
-      - ./apps/web/.env.production.local
+      - ./apps/web/.env.local
+    environment:
+      - SKIP_ENV_VALIDATION=true

@@ -21,7 +21,7 @@ export type ContextType = ScoredPineconeRecord<Metadata>;
  */
 export async function getRelevantContext(
   embeddings: number[],
-  topK: number = 3
+  topK: number = 3,
 ): Promise<ContextType[]> {
   const pineconeIndex = await getPineconeIndex();
 

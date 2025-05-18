@@ -1,13 +1,21 @@
 services:
+  seeder:
+    container_name: seeder
+    build:
+      context: .
+      dockerfile: ./packages/seeder/Dockerfile
+    env_file: ./packages/seeder/.env.local
+
   web:
     container_name: web
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
+    depends_on:
+      seeder:
+        condition: service_completed_successfully
     restart: always
     ports:
       - 3000:3000
     env_file:
       - ./apps/web/.env.local
-    environment:
-      - SKIP_ENV_VALIDATION=true

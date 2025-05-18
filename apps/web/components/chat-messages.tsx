@@ -24,7 +24,7 @@ const ChatMessages = ({ chatHelpers, setInput }: ChatMessagesProps) => {
 
   return (
     <>
-      <div className="max-w-3xl mx-auto w-full px-4 pt-20">
+      <div className="max-w-3xl mx-auto w-full px-4 pt-20 pb-10">
         <div className="py-4">
           {messages.length === 0 ? (
             <StartMessages chatHelpers={chatHelpers} setInput={setInput} />

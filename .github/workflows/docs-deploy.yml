@@ -54,7 +54,7 @@ jobs:
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/docs/out/
+          path: apps/docs/dist/
 
   # Deploy to github pages
   # ref: https://github.com/actions/deploy-pages

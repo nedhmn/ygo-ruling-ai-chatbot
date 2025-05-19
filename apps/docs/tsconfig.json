@@ -19,7 +19,8 @@
     "build/types/**/*.ts",
     "next-env.d.ts",
     "next.config.ts",
-    "dist/types/**/*.ts"
+    "dist/types/**/*.ts",
+    "content/_meta.js"
   ],
   "exclude": ["node_modules"]
 }

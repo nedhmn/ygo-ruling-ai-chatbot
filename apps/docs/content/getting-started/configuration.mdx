@@ -1,0 +1,64 @@
+---
+title: Configuration
+---
+
+# Configuration
+
+Configure environment variables for the application and seeder. Create two `.env.local` files: `apps/web/.env.local` and `packages/seeder/.env.local`.
+
+---
+
+## Environment Variables
+
+These variables are required in your `.env.local` files:
+
+- **`OPENAI_API_KEY`**: Your OpenAI API key. **Required.**
+- **`PINECONE_API_KEY`**: Your Pinecone API key. **Required.**
+- **`PINECONE_INDEX_NAME`**: Your Pinecone index name. Default: `ygo-ruling-ai-chatbot`. **Must match the index created in Pinecone.**
+- **`PINECONE_INDEX_DIMENSION`**: Your Pinecone index dimension. Default: `1536`. Must match embedding dimension.
+- **`PINECONE_INDEX_METRIC`**: Pinecone index similarity metric. Default: `cosine`.
+- **`PINECONE_INDEX_CLOUD`**: Pinecone index cloud provider. Default: `aws`.
+- **`PINECONE_INDEX_REGION`**: Pinecone index region. Default: `us-east-1`.
+- **`OPENAI_EMBEDDING_MODEL`**: OpenAI embedding model. Default: `text-embedding-3-small`.
+- **`OPENAI_EMBEDDING_DIMENSIONS`**: Embedding dimension. Default: `1536`. Should match Pinecone index dimension.
+
+The following variable is **only** required in `apps/web/.env.local`:
+
+- **`OPENAI_MODEL`**: OpenAI model for chatbot responses. Default: `gpt-4.1-nano`.
+
+## `apps/web/.env.local`
+
+Create `apps/web/.env.local` and include all the variables listed above.
+
+```bash filename="apps/web/.env.local" copy
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4.1-nano
+OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+OPENAI_EMBEDDING_DIMENSIONS=1536
+PINECONE_API_KEY=
+PINECONE_INDEX_NAME=ygo-ruling-ai-chatbot
+PINECONE_INDEX_DIMENSION=1536
+PINECONE_INDEX_METRIC=cosine
+PINECONE_INDEX_CLOUD=aws
+PINECONE_INDEX_REGION=us-east-1
+```
+
+## `packages/seeder/.env.local`
+
+Create `packages/seeder/.env.local` and include all variables listed above, **except** `OPENAI_MODEL`.
+
+```bash filename="packages/seeder/.env.local" copy
+OPENAI_API_KEY=
+OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+OPENAI_EMBEDDING_DIMENSIONS=1536
+PINECONE_API_KEY=
+PINECONE_INDEX_NAME=ygo-ruling-ai-chatbot
+PINECONE_INDEX_DIMENSION=1536
+PINECONE_INDEX_METRIC=cosine
+PINECONE_INDEX_CLOUD=aws
+PINECONE_INDEX_REGION=us-east-1
+```
+
+> [!IMPORTANT]
+>
+> The values for shared variables must match in both `.env.local` files.

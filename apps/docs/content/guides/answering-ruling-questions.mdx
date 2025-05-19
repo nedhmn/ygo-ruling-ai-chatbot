@@ -1,0 +1,37 @@
+---
+title: Answering Ruling Questions
+---
+
+# Answering Ruling Questions
+
+This guide explains how to use the application to ask questions about rulings in the Goat Format.
+
+---
+
+## What is Goat Format?
+
+This chatbot is specifically trained on the [Goat Format](https://www.goatformat.com/whatisgoat.html).
+
+Goat Format is based on the summer 2005 Yu-Gi-Oh! era. The widely accepted card pool includes cards up to `The Lost Millennium (TLM)`, excluding `Exarion Universe` and `Cybernetic Revolution (CRV)`.
+
+## Asking a Question
+
+Once you have the application running, you'll see cards on the homepage. If you don't have an ongoing conversation, you can click on one of these cards to start asking a Goat Format question.
+
+Here's an example of clicking a card to initiate a question:
+
+![YGO Ruling Chatbot preview](/introduction-preview.gif)
+
+After clicking, you can type your question about a Goat Format ruling into the chat interface.
+
+> [!NOTE]
+>
+> For better and more detailed responses, you can edit the `OPENAI_MODEL` environment variable in `apps/web/.env.local` to use stronger models.
+
+> [!IMPORTANT]
+>
+> As of `v1.0.0`, the chatbot is primarily trained on [individual card rulings](https://www.goatformat.com/indivrulings.html). We plan to expand its knowledge base in future updates.
+
+## Getting Answers
+
+The chatbot will process your question based on its training data and provide a ruling.

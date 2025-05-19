@@ -3,3 +3,46 @@ title: Running the App
 ---
 
 # Running the App
+
+This document explains how to run the application using Docker Compose.
+
+---
+
+## Running the Application
+
+1.  Open your terminal in the project's main directory.
+2.  Run this command:
+
+    ```bash copy
+    docker compose up --build
+    ```
+
+    > [!NOTE]
+    >
+    > The `--build` part is important the first time you run this, or after changing the setup.
+
+## What Happens
+
+When you run the command:
+
+1. It sets up a data service (`seeder`) first.
+2. Then it starts the main app (`web`).
+3. The app will be ready at `http://localhost:3000`.
+
+You'll see messages in your terminal as things are starting up.
+
+> [!NOTE]
+>
+> The `seeder` will only seed the database once.
+
+## Success!
+
+Congratulations! If everything went well, the application should now be running and accessible in your web browser.
+
+Here's a quick look at what the running application should look like:
+
+![YGO Ruling Chatbot preview](/introduction-preview.gif)
+
+## Stopping the Application
+
+To stop, press `Ctrl + C` in the terminal.

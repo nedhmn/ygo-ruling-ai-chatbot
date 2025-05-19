@@ -3,7 +3,6 @@ import { Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
 import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 import { METADATA } from "@/lib/constants";
 import "@/app/globals.css";
 

@@ -5,4 +5,6 @@ export default {
       breadcrumb: false,
     },
   },
+  "getting-started": "Getting Started",
+  guides: "Guides",
 };

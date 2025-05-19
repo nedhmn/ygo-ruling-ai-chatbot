@@ -12,7 +12,7 @@
         "PINECONE_INDEX_NAME"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "out/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]

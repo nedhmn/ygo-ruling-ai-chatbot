@@ -6,6 +6,7 @@ export default withNextra({
   // Build static files to deploy to Github Pages
   // ref: https://nextjs.org/docs/app/getting-started/deploying#static-export
   output: "export",
+  distDir: "dist",
   basePath: "/ygo-ruling-ai-chatbot",
   // Need to set unoptimized to true for nextra static export
   // ref: https://nextra.site/docs/guide/static-exports#configuration

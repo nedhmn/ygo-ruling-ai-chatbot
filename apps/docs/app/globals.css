@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import "@repo/tailwind-config";
+@import "nextra-theme-docs/style.css";
+
+@variant dark (&:where(.dark *));

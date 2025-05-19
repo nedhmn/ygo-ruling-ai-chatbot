@@ -6,16 +6,20 @@
         "name": "next"
       }
     ],
-    "allowJs": true
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    ".next/types/**/*.ts",
+    "build/types/**/*.ts",
     "next-env.d.ts",
     "next.config.ts",
-    ".next/types/**/*.ts"
+    "dist/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
